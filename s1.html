@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semestre 1</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="https://uploads.onecompiler.io/437muad7y/1790788169993/cropped_circle_image%20(1).png">
+    <link rel="icon" type="image/png" sizes="192x192" href="https://uploads.onecompiler.io/437muad7y/1790788169993/cropped_circle_image%20(1).png">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://uploads.onecompiler.io/437muad7y/1790788169993/cropped_circle_image%20(1).png">
+    <link rel="stylesheet" href="styles.css">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KJ70VFL0P5"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-KJ70VFL0P5');
+    </script>
+</head>
+<body>
+    <div class="logo">
+        <a href="https://www.unicas.it/" target="_blank">
+            <img src="https://uploads.onecompiler.io/437muad7y/1790786528472/unicas.png" alt="UNICAS LOGO" width="150">
+        </a>
+    </div>
+    <header>
+        <h1>University of Cassino and Southern Lazio</h1>
+        <p>Platform to manage your academic journey and access educational resources.</p>
+    </header>
+
+    <main>
+        <section id="options">
+            <div class="options-container">
+                <button onclick="showModuleSection()">Course Section</button>
+                <button onclick="showCalculator()">Calculate GPA</button>
+                <button onclick="goBackToMainMenu()">Main Menu</button>
+            </div>
+        </section>
+
+        <section id="module" style="display:none;">
+            <h2>Sélectionner un Module</h2>
+            <div class="form-group">
+                <label for="year">Year of Study :</label>
+                <select id="year">
+                    <option value="1">1st Year</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="specialty">Field of Study :</label>
+                <select id="specialty">
+                    <option value="Ing">BSc Degree in Computer Engineering</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="semester">Semester :</label>
+                <select id="semester">
+                    <option value="1">Semestre 1</option>
+                </select>
+            </div>
+            <div class="options-container" id="moduleoptions">
+                <p><b>Announcement Section :</b></p>
+                <button onclick="showModule('show')">Announcements</button>
+                <p><b>Resit Section :</b></p>
+                <button onclick="showModule('rat')">Resit</button>
+                <p><b>Module :</b></p>
+                <button onclick="showModule('ctm')">Mathematics I</button>
+                <button onclick="showModule('mdf')">Principles of Computer Science</button>
+                <button onclick="showModule('rdm')">Italian Language and Culture</button>
+                <p><b>Go to Main Menu :</b></p>
+                <button type="button" onclick="goBackToMainMenu()" class="return-button top-return-button">Main Menu</button>
+            </div>
+            <div id="moduleContent" style="display:none;"></div>
+        </section>
+
+        <section id="calculator" style="display:none;">
+            <h2>Calculate GPA</h2>
+                        <div class="form-group">
+                <label for="year">Year of Study :</label>
+                <select id="year">
+                    <option value="1">1st Year</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="specialty">Field of Study :</label>
+                <select id="specialty">
+                    <option value="Ing">BSc Degree in Computer Engineering</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="semester">Semester :</label>
+                <select id="semester">
+                    <option value="1">Semestre 1</option>
+                </select>
+            </div>
+
+            <form id="semesterForm" style="display:none;" onsubmit="return false;">
+                <h2>Enter Your Grades</h2>
+                <div class="module">
+                    <h3>Mathematics I <span style="color:red;">(12 ECTS)</span></h3>
+                    <label for="ctm_exam">Examen:</label>
+                    <input type="number" id="ctm_exam" min="0" max="20" step="any" required>
+                </div>
+                <div class="module">
+                    <h3>Principles of Computer Science <span style="color:red;">(12 ECTS)</span></h3>
+                    <label for="mdf_exam">Examen:</label>
+                    <input type="number" id="mdf_exam" min="0" max="20" step="any" required>
+                </div>
+                <div class="module">
+                    <h3>Italian Language and Culture <span style="color:red;">(6 ECTS)</span></h3>
+                    <label for="rdm_exam">Examen:</label>
+                    <input type="number" id="rdm_exam" min="0" max="20" step="any" required>
+                </div>
+                <div class="result-container">
+                    <button type="button" onclick="calculateAverage()">Calculate Average</button>
+                    <p id="result">Your Semester Average Is: <span id="averageResult">0.00</span></p>
+                    <button type="button" onclick="goBackInCalculator()" class="return-button">Back</button>
+                    <button type="button" onclick="goBackToMainMenu()" class="return-button">Main Menu</button>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026' BEN. MOH-REDA</p>
+    </footer>
+
+    <script>
+        const $ = (id) => document.getElementById(id);
+
+        // Weights per course (must sum to 1 for each course)
+        const WEIGHTS = {
+            ctm: { exam: 1 },
+            mdf: { exam: 1 },
+            rdm: { exam: 1 }
+        };
+        // Coefficients per course
+        const COEFF = { ctm: 12, mdf: 12, rdm: 6 };
+
+        function showCalculator() {
+            $('options').style.display = 'none';
+            $('module').style.display = 'none';
+            $('calculator').style.display = 'block';
+            $('semesterForm').style.display = 'block';
+        }
+
+        function showModuleSection() {
+            $('module').style.display = 'block';
+            $('moduleoptions').style.display = 'block';
+            $('moduleContent').style.display = 'none';
+            $('options').style.display = 'none';
+            $('calculator').style.display = 'none';
+        }
+
+        function showModule(module) {
+            $('moduleoptions').style.display = 'none';
+            $('moduleContent').style.display = 'block';
+
+            let moduleTitle = '';
+            let moduleContent = '';
+
+            switch (module) {
+                case 'show':
+                    moduleTitle = 'Announcements';
+                    moduleContent = `
+                        <hr>
+                        <p><strong>19/09/2026 :</strong></p>
+                        <p>Start of Classes B.Sc. Computer Engineering</p>
+                    `;
+                    break;
+                case 'rat':
+                    moduleTitle = 'Resit';
+                    moduleContent = `
+                    <p>Nothing to show yet.</p>
+                    `;
+                    break;
+                case 'ctm':
+                    moduleTitle = 'Mathematics I';
+                    moduleContent = `
+                    <p>Nothing to show yet.</p>
+                    `;
+                    break;
+                case 'mdf':
+                    moduleTitle = 'Principles of Computer Science';
+                    moduleContent = `
+                    <p>Nothing to show yet.</p>
+                    `;
+                    break;
+                case 'rdm':
+                    moduleTitle = 'Italian Language and Culture';
+                    moduleContent = `
+                    <p>Nothing to show yet.</p>
+                    `;
+                    break;
+            }
+
+            $('moduleContent').innerHTML = `
+                <h2>${moduleTitle}</h2>
+                ${moduleContent}
+                <button type="button" onclick="goBackInModule()" class="return-button top-return-button">Back</button>
+                <button type="button" onclick="goBackToMainMenu()" class="return-button top-return-button">Main Menu</button>
+            `;
+        }
+
+        function goBackInModule() {
+            $('moduleContent').style.display = 'none';
+            $('moduleoptions').style.display = 'block';
+        }
+
+        function goBackToMainMenu() {
+            window.location.href = 'index.html';
+        }
+
+        function goBackInCalculator() {
+            $('calculator').style.display = 'none';
+            $('semesterForm').style.display = 'none';
+            $('options').style.display = 'block';
+        }
+
+        function calculateAverage() {
+            const inputs = document.querySelectorAll('#semesterForm input[type="number"]');
+            let isValid = true;
+
+            inputs.forEach(input => {
+                const v = parseFloat(input.value);
+                if (input.value === '' || isNaN(v) || v < 0 || v > 20) {
+                    isValid = false;
+                    input.style.borderColor = 'red';
+                } else {
+                    input.style.borderColor = '';
+                }
+            });
+
+            if (!isValid) {
+                alert('Please fill in all fields with grades between 0 and 20.');
+                return;
+            }
+
+            const val = (id) => parseFloat($(id).value);
+
+            const note_ctm = val('ctm_exam') * WEIGHTS.ctm.exam;
+            const note_mdf = val('mdf_exam') * WEIGHTS.mdf.exam;
+            const note_rdm = val('rdm_exam') * WEIGHTS.rdm.exam;
+
+            const totalCoeff = COEFF.ctm + COEFF.mdf + COEFF.rdm;
+            const moyenne_semestre =
+                (note_ctm * COEFF.ctm + note_mdf * COEFF.mdf + note_rdm * COEFF.rdm) / totalCoeff;
+
+            $('averageResult').innerText = moyenne_semestre.toFixed(2);
+        }
+
+    </script>
+</body>
+</html>
