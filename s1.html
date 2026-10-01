@@ -96,17 +96,17 @@
                 <h2>Enter Your Grades</h2>
                 <div class="module">
                     <h3>Mathematics I <span style="color:red;">(12 ECTS)</span></h3>
-                    <label for="ctm_exam">Examen:</label>
+                    <label for="ctm_exam">Exam:</label>
                     <input type="number" id="ctm_exam" min="0" max="20" step="any" required>
                 </div>
                 <div class="module">
                     <h3>Principles of Computer Science <span style="color:red;">(12 ECTS)</span></h3>
-                    <label for="mdf_exam">Examen:</label>
+                    <label for="mdf_exam">Exam:</label>
                     <input type="number" id="mdf_exam" min="0" max="20" step="any" required>
                 </div>
                 <div class="module">
                     <h3>Italian Language and Culture <span style="color:red;">(6 ECTS)</span></h3>
-                    <label for="rdm_exam">Examen:</label>
+                    <label for="rdm_exam">Exam:</label>
                     <input type="number" id="rdm_exam" min="0" max="20" step="any" required>
                 </div>
                 <div class="result-container">
@@ -176,7 +176,14 @@
                 case 'ctm':
                     moduleTitle = 'Mathematics I';
                     moduleContent = `
-                    <p>Nothing to show yet.</p>
+                    <p>Mathematics I: Full Course <a href="https://drive.google.com/file/d/1XbBfhj_i2lu6xTXiWPJotO_H9V40_s5U/view?usp=sharing" target="_blank">Download PDF</a></p>
+                    <p>Chapter 1: Logic and Methods of proofs <a href="http://moodle.univ-dbkm.dz/pluginfile.php/38361/mod_resource/content/4/Chapter%201.pdf" target="_blank">Download PDF</a></p>
+                    <p>Exercises Serie N°1: <a href="http://moodle.univ-dbkm.dz/pluginfile.php/38368/mod_resource/content/1/serie%201-math1-22-23.pdf" target="_blank">Download PDF</a></p>
+                    <p>Chapter 2: Sets - Relations - Functions <a href="http://moodle.univ-dbkm.dz/pluginfile.php/38374/mod_resource/content/3/Chapter%202.pdf" target="_blank">Download PDF</a></p>
+                    <p>Exercises Serie N°2: <a href="http://moodle.univ-dbkm.dz/pluginfile.php/38375/mod_resource/content/1/Serie2-Math1-22-23.pdf" target="_blank">Download PDF</a></p>
+                    <p>Chapter 3: Real Functions of a Real Variable <a href="http://moodle.univ-dbkm.dz/pluginfile.php/38390/mod_resource/content/3/Chapter%203.pdf" target="_blank">Download PDF</a></p>
+                    <p>Chapter 4: Application to Elementary Functions <a href="http://moodle.univ-dbkm.dz/pluginfile.php/38428/mod_resource/content/3/Chapter%204.pdf" target="_blank">Download PDF</a></p>
+                    <p>Chapter 5: Linear algebra <a href="http://moodle.univ-dbkm.dz/pluginfile.php/38438/mod_resource/content/2/Chapter%205.pdf" target="_blank">Download PDF</a></p>
                     `;
                     break;
                 case 'mdf':
